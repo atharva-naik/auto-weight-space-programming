@@ -331,7 +331,7 @@ def build(a):
               if k in old},
            **{k: old[k] for k in ("definitions_plain", "goal_plain", "speculation_heading", "speculation",
                                   "definitions_parts", "goal_parts", "_legacy", "figures", "experiment_heading",
-                                  "setup_figures", "ai_use_heading", "ai_use", "tldr", "future_work_heading", "future_work") if k in old},
+                                  "setup_figures", "ai_use_heading", "ai_use", "tldr", "future_work_heading", "future_work", "artifacts_heading", "artifacts") if k in old},
            "representation": old.get("representation") or "",
            "series": (old.get("series") or
                       "This is the first post in a series on training small models, such as Qwen3.5-4B, to do "
@@ -393,6 +393,8 @@ def render(a=None):
     def inline(x):
         x = _re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", e(x))
         x = _re.sub(r"(?<![\w*])\*(?!\s)([^*$]+?)(?<!\s)\*(?![\w*])", r"<i>\1</i>", x)
+        x = _re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r"<a href='\2'>\1</a>", x)  # [text](url)
+        x = _re.sub(r"`([^`\n]+)`", r"<code>\1</code>", x)
         return cite_links(x)
 
     def paras(text, lead=""):
@@ -512,6 +514,8 @@ def render(a=None):
                          f"<div class='cbody'>{body}</div></details>")
     if (d.get("future_work") or "").strip():
         parts.append(f"<h2>{e(d.get('future_work_heading') or 'Future Work and Next Post')}</h2>" + paras(d["future_work"]))
+    if (d.get("artifacts") or "").strip():
+        parts.append(f"<h2>{e(d.get('artifacts_heading') or 'Artifact Release and Reproducibility Statement')}</h2>" + paras(d["artifacts"]))
     if d.get("ai_use"):
         parts.append(f"<h2>{e(d.get('ai_use_heading') or 'AI use')}</h2>" + paras(d["ai_use"]))
     if d.get("speculation"):
@@ -614,6 +618,7 @@ function draw(){
   <div class="lbl">Representation heading</div>${ed('representation_heading', D.representation_heading||'')}<div class="lbl">Why the weights are plain text</div>${ed('representation', D.representation||'', 'def')}<div class="lbl">Experiment section heading</div>${ed('experiment_heading', D.experiment_heading||'')}<div class="lbl">Experimental setup</div>${ed('setup', D.setup,'def')}
   ${(D.setup_figures||[]).map((f,k)=>`<div style="display:flex;gap:8px;margin:4px 0"><img src="/fig/${esc(f.src)}" style="width:180px;border:1px solid #ddd"><div style="flex:1"><div class="lbl">setup figure caption · ${esc(f.src)}</div>${ed(`setup_figures.${k}.caption`, f.caption||'', 'def')}</div></div>`).join('')}
   <div class="lbl">Future work heading</div>${ed('future_work_heading', D.future_work_heading||'Future Work and Next Post')}<div class="lbl">Future work and next post (a block of lines starting with "- " is a bulleted list)</div>${ed('future_work', D.future_work||'', 'def')}
+<div class="lbl">Artifacts heading</div>${ed('artifacts_heading', D.artifacts_heading||'Artifact Release and Reproducibility Statement')}<div class="lbl">Artifact release and reproducibility</div>${ed('artifacts', D.artifacts||'', 'def')}
   <div class="lbl">AI use heading</div>${ed('ai_use_heading', D.ai_use_heading||'AI use')}<div class="lbl">AI use</div>${ed('ai_use', D.ai_use||'', 'def')}<div class="lbl">Speculation heading</div>${ed('speculation_heading', D.speculation_heading||'Speculation')}<div class="lbl">Speculation (shown after the results)</div>${ed('speculation', D.speculation||'', 'def')}<div class="lbl">References (one per line)</div><textarea data-path="references" style="min-height:120px">${esc(D.references||'')}</textarea></div>`;
   let st = {ok:0,log:0,bad:0,aud:0,n:0};
   let shown = null;

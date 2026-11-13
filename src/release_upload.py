@@ -237,6 +237,9 @@ def main(a):
     for repo, (d, present) in out.items():
         rid = f"{a.owner}/{repo}"
         print(rid, present, flush=True)
+        if not present:
+            print("nothing built, skipping", rid, flush=True)
+            continue
         if a.dry:
             continue
         api.create_repo(rid, repo_type="dataset", private=True, exist_ok=True)
