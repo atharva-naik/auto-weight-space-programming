@@ -1,0 +1,34 @@
+{
+ "n_neurons": 377,
+ "x0/syco": {
+  "spearman": 0.40330265706195184,
+  "pearson": 0.3379409634476677,
+  "sign_agree_top2pct": 0.7333333333333333
+ },
+ "x2/syco": {
+  "spearman": 0.413359879294633,
+  "pearson": 0.49643890523562506,
+  "sign_agree_top2pct": 1.0
+ },
+ "clamp/syco": {
+  "spearman": 0.8663061107756862,
+  "pearson": 0.849981850573857,
+  "sign_agree_top2pct": 0.7333333333333333
+ },
+ "x0/math": {
+  "spearman": 0.15492859135943796,
+  "pearson": 0.21028176243997776,
+  "sign_agree_top2pct": 0.8666666666666667
+ },
+ "x2/math": {
+  "spearman": 0.1431602240011444,
+  "pearson": 0.13075423255443594,
+  "sign_agree_top2pct": 0.7333333333333333
+ },
+ "clamp/math": {
+  "spearman": 0.4975941019591946,
+  "pearson": 0.5725119451737289,
+  "sign_agree_top2pct": 1.0
+ },
+ "sec": 0.12220287322998047
+}

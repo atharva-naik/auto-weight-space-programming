@@ -1,0 +1,14 @@
+{
+ "general_damage_nats_per_token": {
+  "S_late": 4.810933257341385,
+  "C_late": 0.03989369451999664,
+  "S_early": 4.850579582452774,
+  "C_early": 0.021537322402000427
+ },
+ "interchange_picks_source": {
+  "patch_S": 0.91,
+  "patch_C": 0.06,
+  "no_patch": 0.05
+ },
+ "n_pairs": 100
+}

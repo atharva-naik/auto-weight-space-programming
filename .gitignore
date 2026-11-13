@@ -1,0 +1,5 @@
+release/
+share/
+__pycache__/
+*.pyc
+.DS_Store

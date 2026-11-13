@@ -1,0 +1,9 @@
+torch>=2.4
+transformers>=5.7
+peft
+safetensors
+huggingface_hub
+numpy
+scipy
+matplotlib
+pillow
