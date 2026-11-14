@@ -363,6 +363,8 @@ def build(a):
           f"{n.count('ok')} ok, {n.count('log')} log, {n.count('MISMATCH')} mismatch, {n.count('MISSING')} missing")
 
 
+SERIES_URL = "https://atharva-naik.github.io/blog/awsp/"
+
 # (name, "Last, First" for BibTeX, pending). Pending co-authors are shown in red until they confirm.
 AUTHORS = [("Atharva Naik", "Naik, Atharva", False),
            ("Emmy Liu", "Liu, Emmy", False),
@@ -465,7 +467,7 @@ def render(a=None):
              "<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js' "
              "onload=\"renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})\"></script>"
              "</head><body><main>",
-             "<div class='kicker'>Auto Weight-Space Programming · Part 1</div>", f"<h1>{e(d['title'])}</h1>",
+             f"<div class='kicker'><a href='{SERIES_URL}' style='color:inherit;text-decoration:none'>Auto Weight-Space Programming</a> · Part 1</div>", f"<h1>{e(d['title'])}</h1>",
              f"<div class='byline'>{byline} · November 2026 · <a href='https://github.com/atharva-naik/auto-weight-space-programming'>code and logs</a></div>",
              (f"<div class='tldr'><b>TL;DR.</b> {inline(d['tldr'])}</div>" if (d.get("tldr") or "").strip() else ""),
              f"<h2>{e(d.get('series_heading', 'About this series'))}</h2>" + paras(d.get("series", "")),
@@ -522,10 +524,12 @@ def render(a=None):
         parts.append(f"<h2>{e(d.get('speculation_heading', 'Speculation'))}</h2>" + paras(d["speculation"]))
     refs = [r.strip() for r in (d.get("references") or "").splitlines() if r.strip()]
     bib_authors = " and ".join(f"<span class='pending'>{e(b)}</span>" if pend else e(b) for _, b, pend in AUTHORS)
-    citation = ("<h2>Citation</h2><pre class='prompt'>@misc{naik2026autowsp,\n"
-                f"  title  = {{{e(d['title'])}}},\n  author = {{{bib_authors}}},\n  year   = {{2026}},\n"
-                "  url    = {https://github.com/atharva-naik/auto-weight-space-programming}\n}</pre>"
-                )
+    # one citation for the whole series (not one per part)
+    citation = ("<h2>Citation</h2><p class='note'>Please cite the series as a whole; to point to a specific result, name "
+                "the part and finding, for example \"Part 1, Finding 2.3\".</p><pre class='prompt'>@misc{naik2026autowsp,\n"
+                f"  title        = {{Auto Weight-Space Programming}},\n  author       = {{{bib_authors}}},\n"
+                "  year         = {2026},\n  howpublished = {Blog series},\n"
+                f"  url          = {{{SERIES_URL}}}\n}}</pre>")
     if refs:
         def ref_li(r):
             m = _re.match(r"^\s*(@?[^\s,(]+)[^(]*\((\d{4})[a-z]?\)", r)

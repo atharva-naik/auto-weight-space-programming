@@ -11,7 +11,7 @@ with a small LoRA adapter, to apply the logit lens to 128-number slices of its o
 
 - Reader adapters, with the per-item evaluation files behind every number: https://huggingface.co/atharva-naik-1/awsp-readers
 - The reading task as text (training pool and the four-way evaluation sets): https://huggingface.co/datasets/atharva-naik-1/awsp-neuron-reading
-- The post itself, as rendered here: `docs/blog/minimal.html` (source: `docs/blog/claims.json`)
+- The post: https://atharva-naik.github.io/blog/awsp-part-1/ (rendered copy: `docs/blog/minimal.html`, source: `docs/blog/claims.json`)
 
 ## Layout
 
@@ -55,11 +55,15 @@ weights under the Llama 3.2 Community License.
 
 ## Citation
 
+Please cite the series as one work; to point to a specific result, name the part and finding (for example "Part 1,
+Finding 2.3"). Series page: https://atharva-naik.github.io/blog/awsp/
+
 ```
 @misc{naik2026autowsp,
-  title  = {Auto Weight-Space Programming (Part 1): Defining the Problem and Initial Experiments},
-  author = {Naik, Atharva and Liu, Emmy and Gangal, Varun},
-  year   = {2026},
-  url    = {https://github.com/atharva-naik/auto-weight-space-programming}
+  title        = {Auto Weight-Space Programming},
+  author       = {Naik, Atharva and Liu, Emmy and Gangal, Varun},
+  year         = {2026},
+  howpublished = {Blog series},
+  url          = {https://atharva-naik.github.io/blog/awsp/}
 }
 ```
