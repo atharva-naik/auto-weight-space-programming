@@ -32,8 +32,7 @@ PARTS = [
                             "templated eval suite for reading and writing tasks, with automated grading."),
      "tags": ["benchmarks", "evals"], "links": []},
 ]
-RELATED = [("November 2, 2026", "Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights",
-            "Takehi, Teoh, Zhang and Khattab (MIT CSAIL)", "https://rikiyat.github.io/blog/weight-space-programming/")]
+RELATED = []  # external posts shown under "Related" (left empty on purpose)
 
 e = html.escape
 SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
@@ -90,7 +89,8 @@ def page():
                    f"<span class='part'>{e(p['part'])}</span>{meta_line}</div><h3>{h3}</h3><p>{e(p['summary'])}</p>"
                    f"<div class='tags'>{e(', '.join(p['tags']))}</div>" + (f"<div class='links'>{links}</div>" if links else "")
                    + f"</div>{thumb}</div>")
-    out.append("<h2>Related</h2>")
+    if RELATED:
+        out.append("<h2>Related</h2>")
     for date, t, who, u in RELATED:
         out.append(f"<div class='post'><div class='text'><div class='meta'>{e(date)}<span class='ext'>[external]</span></div>"
                    f"<h3><a href='{u}'>{e(t)}</a></h3><p>{e(who)}</p></div></div>")
