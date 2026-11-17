@@ -16,6 +16,7 @@ CONFIG = {"Qwen/Qwen3.5-0.8B": "qwen3.5-0.8b", "Qwen/Qwen3.5-2B": "qwen3.5-2b", 
           "Qwen/Qwen3.5-9B": "qwen3.5-9b", "meta-llama/Llama-3.2-3B-Instruct": "llama-3.2-3b-instruct"}
 SPLIT = {"validation": "validation", "test": "test_neuron", "test_hard": "test_neuron_hard", "test_layer": "test_layer"}
 DATASET = "atharva-naik-1/awsp-neuron-reading"
+REVISION = "fb9c95b5a9122d21d3d5a10ddbe5a9a10ce641db"  # the test version is pinned to this dataset commit
 HERE = os.path.dirname(os.path.abspath(__file__))
 CANARY = open(os.path.join(HERE, "..", "..", "CANARY")).read().strip()
 LETTERS = "ABCD"
@@ -86,7 +87,7 @@ def numbers_block(prompt):
 def generate(out, model="Qwen/Qwen3.5-4B", split="validation", limit=100, variant="agent"):
     from huggingface_hub import hf_hub_download
     assert variant in ("agent", "scorer"), variant
-    items = [json.loads(l) for l in open(hf_hub_download(DATASET, f"{CONFIG[model]}/{SPLIT[split]}.jsonl", repo_type="dataset"))]
+    items = [json.loads(l) for l in open(hf_hub_download(DATASET, f"{CONFIG[model]}/{SPLIT[split]}.jsonl", repo_type="dataset", revision=REVISION))]
     items = items[:limit] if limit else items
     slug = CONFIG[model].replace(".", "")
     for i, it in enumerate(items):
@@ -113,3 +114,14 @@ def generate(out, model="Qwen/Qwen3.5-4B", split="validation", limit=100, varian
         for f in ("tests/test.sh", "solution/solve.sh"):
             os.chmod(os.path.join(d, f), 0o755)
     return len(items)
+
+
+def generate_train(out, model="Qwen/Qwen3.5-4B"):
+    """Train version: the released training items (neurons disjoint from every test split), at the pinned revision.
+    Training data carries no canary."""
+    from huggingface_hub import hf_hub_download
+    os.makedirs(out, exist_ok=True)
+    src = hf_hub_download(DATASET, f"{CONFIG[model]}/train.jsonl", repo_type="dataset", revision=REVISION)
+    dst = os.path.join(out, f"{CONFIG[model]}-train.jsonl")
+    shutil.copy(src, dst)
+    return sum(1 for _ in open(dst))

@@ -37,7 +37,7 @@ def _check(card, schema=SCHEMA, where="task"):
     return errs
 
 
-def load_task(task_id):
+def load_task(task_id, quality=True):
     path = os.path.join(TASKS, task_id, "task.yaml")
     card = yaml.safe_load(open(path))
     errs = _check(card)
@@ -50,6 +50,27 @@ def load_task(task_id):
         errs.append("task: canary must be the suite's canary GUID (see CANARY)")
     if not os.path.exists(os.path.join(TASKS, task_id, card.get("entrypoint", "run.py"))):
         errs.append("task: entrypoint file not found")
+    if not re.search(r"[0-9a-f]{40}", str(card.get("test", {}).get("pinned", ""))):
+        errs.append("task: test.pinned must include a full 40-character revision or commit hash (QUALITY.md 1)")
+    if quality:
+        qp = os.path.join(TASKS, task_id, "quality.json")
+        qd = json.load(open(qp)) if os.path.exists(qp) else None
+        if not qd:
+            errs.append(f"task: no quality.json; run python -m wspnest check {task_id} (QUALITY.md)")
+        elif not qd.get("pass"):
+            errs.append(f"task: quality bars not passing: {[k for k, v in qd.get('bars', {}).items() if not v]}")
+        elif qd.get("version") != card.get("version"):
+            errs.append(f"task: quality.json is for version {qd.get('version')}, card is {card.get('version')}; rerun check")
+    if card.get("test", {}).get("frozen") is not True:
+        errs.append("task: the test version must be frozen (test.frozen: true)")
+    ad = card.get("adapter")
+    if ad:
+        if not ad.get("consent", {}).get("revocable"):
+            errs.append("task: adapters need the upstream authors' revocable, opt-in consent (adapter.consent)")
+        if not ad.get("parity", {}).get("match"):
+            errs.append("task: adapters must pass a parity check against upstream's published numbers (adapter.parity)")
+        elif not os.path.exists(os.path.join(TASKS, task_id, ad["parity"]["file"])):
+            errs.append("task: adapter parity file not found")
     return card, errs
 
 

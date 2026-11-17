@@ -1,0 +1,32 @@
+{
+ "task": "wsp-gym",
+ "version": "1.0.0",
+ "harness_commit": "6caee1411a4c2a99e8780250652086f7d7672270",
+ "options": {
+  "split": "test_id",
+  "variant": "direct",
+  "limit": 20
+ },
+ "date": "2026-11-17T01:37:47+00:00",
+ "pinned": true,
+ "mode": "harbor",
+ "n": 20,
+ "n_generated": 20,
+ "oracle": 1.0,
+ "null": 0.0,
+ "deterministic": true,
+ "n_scored": 20,
+ "no_canary": [],
+ "leaked": [],
+ "chance": 0.0071,
+ "bars": {
+  "pinned": true,
+  "oracle": true,
+  "null": true,
+  "deterministic": true,
+  "canary": true,
+  "hidden": true,
+  "enough_checked": true
+ },
+ "pass": true
+}
