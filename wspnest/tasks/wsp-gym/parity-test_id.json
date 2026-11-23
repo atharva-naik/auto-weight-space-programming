@@ -1,0 +1,42 @@
+{
+ "split": "test_id",
+ "n": 500,
+ "upstream_commit": "d050d16dda5ed3243f5c59d115e931e44ef3da53",
+ "arms": {
+  "oracle": {
+   "repair_rate": 1.0,
+   "clean_ok": 1.0,
+   "published_repair_rate": 1.0,
+   "published_clean_ok": 1.0,
+   "match": true
+  },
+  "noop": {
+   "repair_rate": 0.0,
+   "clean_ok": 1.0,
+   "published_repair_rate": 0.0,
+   "published_clean_ok": 1.0,
+   "match": true
+  },
+  "random": {
+   "repair_rate": 0.0071,
+   "clean_ok": 0.0,
+   "published_repair_rate": 0.0071,
+   "published_clean_ok": 0.0,
+   "match": true
+  },
+  "outlier": {
+   "repair_rate": 0.0403,
+   "clean_ok": 0.1538,
+   "published_repair_rate": 0.0403,
+   "published_clean_ok": 0.1538,
+   "match": true
+  },
+  "search": {
+   "repair_rate": 0.6517,
+   "clean_ok": 0.9744,
+   "published_repair_rate": 0.6517,
+   "published_clean_ok": 0.9744,
+   "match": true
+  }
+ }
+}

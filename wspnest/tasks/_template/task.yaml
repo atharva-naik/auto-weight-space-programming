@@ -20,6 +20,12 @@ license:
 data:
   location: hf://datasets/owner/name   # or a URL; never re-upload data whose license does not allow it
   splits: {test: 1000}
+test:                 # every task has a frozen test version, pinned for reproduction (it carries the canary)
+  frozen: true
+  pinned: "dataset revision, upstream commit or seeds"
+# train:              # optional, for gym-like tasks: a generator of training data, disjoint from test, with NO canary
+#   entrypoint: generate_train
+#   disjoint_from_test: "how you guarantee it (reserved seed ranges, held-out items, ...)"
 metric:
   name: accuracy
   chance: 0.25

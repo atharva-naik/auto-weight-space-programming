@@ -16,7 +16,8 @@
     "metric",
     "baselines",
     "entrypoint",
-    "canary"
+    "canary",
+    "test"
   ],
   "properties": {
     "id": {
@@ -173,6 +174,102 @@
     "runtime": {
       "type": "string",
       "description": "how the task runs under Harbor (variants, agents, GPU needs)"
+    },
+    "test": {
+      "type": "object",
+      "required": [
+        "frozen"
+      ],
+      "description": "the test version: every task has one; pinned and frozen for reproduction, carries the canary, and is what releases score",
+      "properties": {
+        "frozen": {
+          "type": "boolean"
+        },
+        "pinned": {
+          "type": "string",
+          "description": "what pins it (dataset revision, upstream commit, seeds)"
+        }
+      }
+    },
+    "train": {
+      "type": "object",
+      "required": [
+        "entrypoint",
+        "disjoint_from_test"
+      ],
+      "description": "optional train version, for gym-like tasks: a generator of training data, provably disjoint from the test version and WITHOUT the canary. Tasks with only a test version have no training data.",
+      "properties": {
+        "entrypoint": {
+          "type": "string",
+          "description": "function in the task's entrypoint file: generate_train(out, **options) -> int"
+        },
+        "disjoint_from_test": {
+          "type": "string",
+          "description": "how disjointness is guaranteed (reserved seed ranges, held-out neurons, ...)"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "adapter": {
+      "type": "object",
+      "required": [
+        "upstream",
+        "commit",
+        "consent",
+        "parity"
+      ],
+      "description": "present for benchmark adapters only",
+      "properties": {
+        "upstream": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "consent": {
+          "type": "object",
+          "required": [
+            "by",
+            "date",
+            "revocable"
+          ],
+          "properties": {
+            "by": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "revocable": {
+              "type": "boolean"
+            },
+            "scope": {
+              "type": "string"
+            }
+          }
+        },
+        "parity": {
+          "type": "object",
+          "required": [
+            "file",
+            "match"
+          ],
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "match": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        }
+      }
     }
   }
 }

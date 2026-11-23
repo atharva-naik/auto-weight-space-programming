@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "WSPNest: A Living Benchmark for Weight-Space Programming"
+title: "WSPNest: A Live Eval Framework for Weight-Space Programming"
 message: "If you use WSPNest, please cite it, and also cite the original work behind each task you use (see each task's credit.citation)."
 type: software
 authors:
