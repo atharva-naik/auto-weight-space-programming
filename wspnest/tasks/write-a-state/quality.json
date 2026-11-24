@@ -1,0 +1,84 @@
+{
+ "task": "write-a-state",
+ "version": "0.1.0",
+ "harness_commit": "393ba20cb1050181fdb1aec8de6db137ccb941da",
+ "options": {},
+ "date": "2026-11-24T00:49:26+00:00",
+ "pinned": true,
+ "mode": "selfcheck",
+ "n": 10,
+ "n_generated": 10,
+ "n_scored": 10,
+ "oracle": 0.7608658190476191,
+ "oracle_ok": true,
+ "null": 0.0,
+ "deterministic": true,
+ "no_canary": [],
+ "leaked": [],
+ "oracle_per_task": {
+  "loc01": [
+   0.818182,
+   0.818182
+  ],
+  "loc02": [
+   0.85,
+   0.85
+  ],
+  "loc03": [
+   0.8333333333333333,
+   0.8333333333333333
+  ],
+  "loc04": [
+   0.875,
+   0.875
+  ],
+  "loc05": [
+   0.6666666666666667,
+   0.6666666666666667
+  ],
+  "loc06": [
+   0.75,
+   0.75
+  ],
+  "loc07": [
+   0.7,
+   0.7
+  ],
+  "loc08": [
+   0.8333333333333333,
+   0.8333333333333333
+  ],
+  "loc09": [
+   0.8,
+   0.8
+  ],
+  "loc10": [
+   0.48214285714285704,
+   0.48214285714285704
+  ]
+ },
+ "recorded": {
+  "loc01": 0.8181818181818181,
+  "loc02": 0.85,
+  "loc03": 0.8333333333333333,
+  "loc04": 0.875,
+  "loc05": 0.6666666666666667,
+  "loc06": 0.75,
+  "loc07": 0.7,
+  "loc08": 0.8333333333333333,
+  "loc09": 0.8,
+  "loc10": 0.48214285714285704
+ },
+ "model_dir_used": "local snapshot",
+ "chance": 0.0,
+ "bars": {
+  "pinned": true,
+  "oracle": true,
+  "null": true,
+  "deterministic": true,
+  "canary": true,
+  "hidden": true,
+  "enough_checked": true
+ },
+ "pass": true
+}
